@@ -1,0 +1,106 @@
+'''
+Relations with Other Patterns
+
+You can use Iterators to traverse Composite trees.
+
+You can use Factory Method along with Iterator to let collection subclasses return different types of iterators
+that are compatible with the collections.
+
+You can use Memento along with Iterator to capture the current iteration state and roll it back if necessary.
+
+You can use Visitor along with Iterator to traverse a complex data structure and execute some operation over its elements,
+even if they all have different classes.
+
+'''
+
+from __future__ import annotations
+
+from collections.abc import Iterable, Iterator
+from typing import Any
+
+"""
+To create an iterator in Python, there are two abstract classes from the built-
+in `collections` module - Iterable,Iterator. We need to implement the
+`__iter__()` method in the iterated object (collection), and the `__next__ ()`
+method in the iterator.
+"""
+
+
+class AlphabeticalOrderIterator(Iterator):
+    """
+    Concrete Iterators implement various traversal algorithms. These classes
+    store the current traversal position at all times.
+    """
+
+    """
+    `_position` attribute stores the current traversal position. An iterator may
+    have a lot of other fields for storing iteration state, especially when it
+    is supposed to work with a particular kind of collection.
+    """
+    _position: int = None
+
+    """
+    This attribute indicates the traversal direction.
+    """
+    _reverse: bool = False
+
+    def __init__(self, collection: WordsCollection, reverse: bool = False) -> None:
+        self._collection = collection
+        self._reverse = reverse
+        self._position = -1 if reverse else 0
+
+    def __next__(self):
+        """
+        The __next__() method must return the next item in the sequence. On
+        reaching the end, and in subsequent calls, it must raise StopIteration.
+        """
+        try:
+            value = self._collection[self._position]
+            self._position += -1 if self._reverse else 1
+        except IndexError:
+            raise StopIteration()
+
+        return value
+
+
+class WordsCollection(Iterable):
+    """
+    Concrete Collections provide one or several methods for retrieving fresh
+    iterator instances, compatible with the collection class.
+    """
+
+    def __init__(self, collection=None) -> None:
+        if collection is None:
+            collection = []
+        self._collection = collection
+
+    def __iter__(self) -> AlphabeticalOrderIterator:
+        """
+        The __iter__() method returns the iterator object itself, by default we
+        return the iterator in ascending order.
+        """
+        return AlphabeticalOrderIterator(self._collection, reverse=False)
+
+    def get_reverse_iterator(self) -> AlphabeticalOrderIterator:
+        return AlphabeticalOrderIterator(self._collection, reverse=True)
+
+    def add_item(self, item: Any):
+        self._collection.append(item)
+
+
+if __name__ == "__main__":
+    # The client code may or may not know about the Concrete Iterator or
+    # Collection classes, depending on the level of indirection you want to keep
+    # in your program.
+    collection = WordsCollection()
+    collection.add_item("Peach")
+    collection.add_item("Apple")
+    collection.add_item("Cherry")
+    collection.add_item("Orange")
+
+    print("Straight traversal:")
+    print("\n".join(collection))
+    print("")
+
+    print("Reverse traversal:")
+    print("\n".join(collection.get_reverse_iterator()), end="")

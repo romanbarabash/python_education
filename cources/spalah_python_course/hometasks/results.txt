@@ -1,0 +1,6 @@
+Game: 2019-03-10 22:21:33.347198
+The number was: 11
+Number of guesses: 4
+Game: 2019-03-10 22:21:43.195145
+The number was: 10
+Number of guesses: 1
