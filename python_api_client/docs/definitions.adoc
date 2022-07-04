@@ -1,0 +1,47 @@
+
+[[_definitions]]
+== Definitions
+
+[[_task]]
+=== Task
+Task is the main entity in this application. Everything revolves around tasks and managing them.
+
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**assignedTo** +
+__optional__||<<_user,User>>
+|**description** +
+__optional__|The task description is a longer, more detailed description of the issue.|string
+|**effort** +
+__optional__|the level of effort required to get this task completed|integer (int32)
+|**id** +
+__optional__|A unique identifier for the task. These are created in ascending order.|string (uuid)
+|**reportedBy** +
+__optional__||<<_user,User>>
+|**severity** +
+__optional__||integer (int32)
+|**status** +
+__optional__|the status of the issue|string
+|**title** +
+__optional__|The title for a task.|string
+|===
+
+
+[[_user]]
+=== User
+This representation of a user is mainly meant for inclusion in other models, or for list views.
+
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**id** +
+__optional__|This id is automatically generated on the server when a user is created.|string (uuid)
+|**screenName** +
+__optional__|This is used for vanity type urls as well as login credentials.|string
+|===
+
+
+
