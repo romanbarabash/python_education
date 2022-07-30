@@ -1,6 +1,9 @@
 '''
 Bridge, State, Strategy (and to some degree Adapter) have very similar structures.
-Indeed, all of these patterns are based on composition, which is delegating work to other objects. However, they all solve different problems. A pattern isn’t just a recipe for structuring your code in a specific way. It can also communicate to other developers the problem the pattern solves.
+Indeed, all of these patterns are based on composition, which is delegating work to other objects.
+However, they all solve different problems.
+A pattern isn’t just a recipe for structuring your code in a specific way.
+It can also communicate to other developers the problem the pattern solves.
 
 State can be considered as an extension of Strategy.
 Both patterns are based on composition: they change the behavior of the context by delegating some work to helper objects.
@@ -83,7 +86,7 @@ class Park:
     def show_climatic_area(self):
         self.zone.show_climatic_zone()
 
-    def observe(self, distance):
+    def observe_distance(self, distance):
         self.zone.observe(distance)
 
 
@@ -91,15 +94,15 @@ class Park:
 park = Park()
 
 park.show_climatic_area()
-park.observe(30)
-park.observe(60)
-park.observe(110)
-park.observe(310)
+park.observe_distance(30)
+park.observe_distance(60)
+park.observe_distance(110)
+park.observe_distance(310)
 
 park.change_climatic_area()
-park.observe(100)
-park.observe(250)
+park.observe_distance(100)
+park.observe_distance(250)
 
 park.change_climatic_area()
-park.observe(10)
-park.observe(250)
+park.observe_distance(10)
+park.observe_distance(250)

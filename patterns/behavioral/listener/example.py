@@ -63,31 +63,32 @@ class DecimalViewer:
 
 
 if __name__ == "__main__":
-    listener_1 = Listener('Processor')
-    listener_2 = Listener('Video Card')
+    processor_listener = Listener('Processor')
+    video_card_listener = Listener('Video Card')
 
     decimal_view = DecimalViewer()
     hex_view = HexViewer()
     octal_view = OctalViewer()
 
-    listener_1.attach(decimal_view)
-    listener_1.attach(hex_view)
-    listener_1.attach(octal_view)
-    listener_2.attach(decimal_view)
-    listener_2.attach(hex_view)
-    listener_2.attach(octal_view)
+    processor_listener.attach(decimal_view)
+    processor_listener.attach(hex_view)
+    processor_listener.attach(octal_view)
+    video_card_listener.attach(decimal_view)
+    video_card_listener.attach(hex_view)
+    video_card_listener.attach(octal_view)
 
-    listener_1.price = 10
+    processor_listener.price = 10
 
-    listener_1.detach(hex_view)
-    listener_2.detach(hex_view)
-    listener_1.detach(octal_view)
-    listener_2.detach(octal_view)
+    processor_listener.detach(hex_view)
+    video_card_listener.detach(hex_view)
+    processor_listener.detach(octal_view)
+    video_card_listener.detach(octal_view)
 
-    listener_1.price = 20
-    listener_2.price = 15
-    listener_1.price = 100
-    listener_2.price = 150
+    processor_listener.price = 20
+    processor_listener.price = 100
+
+    video_card_listener.price = 15
+    video_card_listener.price = 150
 
 # Listen to some entity. eg 'Video Card' ->
 # attach subscribers ->

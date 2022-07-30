@@ -93,15 +93,12 @@ class ElectricKettle:
                 print("No power.")
 
 
-def main():
-    # Plug in
-    socket = Socket()
-    adapter = Adapter(socket)
-    kettle = ElectricKettle(adapter)
 
-    # Make coffee
-    kettle.boil()
+# Plug in
+socket = Socket()
+adapter = Adapter(socket)
+kettle = ElectricKettle(adapter)
 
+# Make coffee
+kettle.boil()
 
-if __name__ == "__main__":
-    main()

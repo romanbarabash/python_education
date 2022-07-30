@@ -27,7 +27,7 @@ def get_serializer(format):
         raise ValueError(format)
 
 
-# product object
+# concrete action on product object
 def _serialize_to_json(song):
     payload = {
         'id': song.song_id,
@@ -37,7 +37,7 @@ def _serialize_to_json(song):
     return json.dumps(payload)
 
 
-# product object
+# concrete action on product object
 def _serialize_to_xml(song):
     song_element = et.Element('song', attrib={'id': song.song_id})
     title = et.SubElement(song_element, 'title')
@@ -49,13 +49,13 @@ def _serialize_to_xml(song):
 
 
 # app
-song = Song('1', 'Water of Love', 'Dire Straits')
+song = Song('1', 'Water of Love', 'Dire Straits') # concrete PRODUCT
 
-serialized_json = SongSerializer().serialize(song, 'JSON')
+serialized_json = SongSerializer().serialize(song, 'JSON') # use CLIENT to make CREATOR do concrete serialization(JSON) on PRODUCT
 print(serialized_json)
 
-serialized_xml = SongSerializer().serialize(song, 'XML')
+serialized_xml = SongSerializer().serialize(song, 'XML') # use CLIENT to make CREATOR do concrete serialization(XML) on PRODUCT
 print(serialized_xml)
 
 
-# app -> client -> creator -> product obj
+# app -> client -> creator -> concrete action on product object
