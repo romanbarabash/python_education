@@ -1,5 +1,34 @@
 import random
 
+# task a, find words qty in sentence
+task_a = "hi, i am an arm and i sound like uUuUuuUU"
+
+
+def words_counter(st):
+    li = st.split(" ")
+    return len(li)
+
+
+print("task 11:", words_counter(task_a))
+
+# task b, list objects in the memory
+a = [5, 6, 8]
+b = a + []
+print("task b:")
+
+print(a == b, a is b)
+print(id(a), id(b))  # diff ids
+
+b = a
+print(id(a), id(b))  # same ids
+
+b[2] = 10
+print(a)
+print(b)
+
+# LOOP TASKS
+print('LOOP TASKS', end='\n')
+
 
 # task 1, generator example
 def fibonacci(n):
@@ -34,9 +63,7 @@ task_3 = [8, 0, 5, 7, 19, 20, 11]
 
 def sum(ar):
     sm = 0
-    for items in ar:
-        sm += items
-    return sm
+    return [sm == sm + i for i in ar]
 
 
 print("task_3:", sum(task_3))
@@ -70,19 +97,6 @@ def bubble_sort(arr):
 
 
 print("task_5:", bubble_sort(task_5))
-
-# task 6, list objects in the memory
-a = [5, 6, 8]
-b = a + []
-print("task 6:")
-
-print(a == b, a is b)
-print(id(a), id(b))
-
-b = a
-b[2] = 10
-print(a)
-print(b)
 
 # task 7, parse string using filter and lambda functions
 garbled = "IXXX aXXmX aXXXnXoXXXXXtXhXeXXXXrX sXXXXeXcXXXrXeXt mXXeXsXXXsXaXXXXXXgXeX!XX"
@@ -128,7 +142,8 @@ print(task_9)
 def find_median(ar):
     ar.sort()
     half_size_len = len(ar) // 2
-    return sum(ar[half_size_len - 1: half_size_len + 1]) / 2
+    elements = ar[half_size_len - 1: half_size_len + 1]
+    return (elements[0] + elements[1]) / 2
 
 
 print("task 9:", find_median(task_9))
@@ -150,29 +165,18 @@ def find_mean(ar):
 
 print("task 10:", find_mean(task_10))
 
-# task 11, find words qty in sentence
-task_11 = "hi, i am an arm and i sound like uUuUuuUU"
-
-
-def words_counter(st):
-    li = st.split(" ")
-    return len(li)
-
-
-print("task 11:", words_counter(task_11))
-
 
 # task 12, lucky number test
 def is_my_ticket_lucky(ticket_number):
     result_first, result_second = int(), int()
     ticket_str = str(ticket_number)
     half_ticket_len = len(ticket_str) // 2
-    res_first, res_second = ticket_str[:half_ticket_len], ticket_str[half_ticket_len:]
+    res_first_set, res_second_set = ticket_str[:half_ticket_len], ticket_str[half_ticket_len:]
 
-    for item_first in res_first:
+    for item_first in res_first_set:
         result_first += int(item_first)
 
-    for item_second in res_second:
+    for item_second in res_second_set:
         result_second += int(item_second)
 
     return result_first == result_second
@@ -180,9 +184,21 @@ def is_my_ticket_lucky(ticket_number):
 
 print(f'task 12: {is_my_ticket_lucky(123213)}')
 
+# task 13, count qty of similar chars in string
+test_string = 'afdfghtttiioooayyyyyyyyyy'
+
+
+def count_chars(obj):
+    for item in sorted(set(obj)):
+        qty_of_items_in_obj = obj.count(item)
+        print(f'qty of {item} in {obj} is {qty_of_items_in_obj}')
+
+
+print('task 13:')
+count_chars(test_string)
+
 # DICT TASKS
 print('DICT TASKS', end='\n')
-
 
 # task 2, iterate over dict
 print("task 2, iterate over dict:")
@@ -213,15 +229,15 @@ payments = ['Cash', 'Credit']
 summary_table_data = {'Tax': '$0.00', 'Subtotal': '$7.77', 'Discounts': '$0.00', 'Cash': '$6.77', 'Credit': '$2.00'}
 
 
-def get_payments_data(li):
+def get_payments_data(payment_types: list, payment_data: dict):
     all_returned_items = {}
-    for item, price in summary_table_data.items():
-        if item in li:
+    for item, price in payment_data.items():
+        if item in payment_types:
             all_returned_items[item] = price
     return all_returned_items
 
 
-print(f'task 3: {get_payments_data(payments)}')
+print(f'task 3: {get_payments_data(payments, summary_table_data)}')
 
 # task 4, traffic calculator
 raw = [x.split(" ") for x in open("log.txt")]
@@ -232,7 +248,6 @@ for ip, traffic in raw:
         traffic_dict[ip] += int(traffic)
     else:
         traffic_dict[ip] = int(traffic)
-
 
 traffic_list = sorted(traffic_dict.items(), key=lambda x: x[0], reverse=True)
 print('task 4: ')
@@ -250,10 +265,12 @@ for id, city in zip(sorted(ids), cities):
 print('task 5: ')
 print(cities_dict)
 
-def switch_dict_values(d : dict):
-    switched_dict = dict()
+
+def switch_dict_values(d: dict):
+    switched_dict = {}
     for k, v in d.items():
         switched_dict[v] = k
     return switched_dict
+
 
 print(switch_dict_values(cities_dict))
